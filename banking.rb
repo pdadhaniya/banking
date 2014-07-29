@@ -38,15 +38,23 @@ class Bank #made the Bank class
 	end
 
 	def deposit(account_name, deposit_amount)
-		@accounts[account_name.name] += deposit_amount
-		account_name.cash_on_hand -= deposit_amount
-		puts "#{account_name.name} deposited $#{deposit_amount} to #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
+		if (account_name.cash_on_hand - deposit_amount) < 0
+			puts "#{account_name.name} does not have enough cash to deposit $#{deposit_amount}."
+		else
+			@accounts[account_name.name] += deposit_amount
+			account_name.cash_on_hand -= deposit_amount
+			puts "#{account_name.name} deposited $#{deposit_amount} to #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
+		end
 	end
 
 	def withdraw(account_name, withdraw_amount)
-		@accounts[account_name.name] -= withdraw_amount
-		account_name.cash_on_hand += withdraw_amount
-		puts "#{account_name.name} withdrew $#{withdraw_amount} from #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
+		if (@accounts[account_name.name] - withdraw_amount) < 0
+			puts "#{account_name.name} does not have enough money in the account to withdraw $#{withdraw_amount}."
+		else
+			@accounts[account_name.name] -= withdraw_amount
+			account_name.cash_on_hand += withdraw_amount
+			puts "#{account_name.name} withdrew $#{withdraw_amount} from #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
+		end
 	end
 
 	def transfer(account_name, recipient_bank, transfer_amount)
@@ -69,3 +77,6 @@ chase.deposit(me, 200)
 chase.deposit(friend1, 300)
 chase.withdraw(me, 50)
 chase.transfer(me, wells_fargo, 100)
+
+chase.deposit(me, 5000)
+chase.withdraw(me, 5000)
