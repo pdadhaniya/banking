@@ -17,7 +17,7 @@ class Bank #made the Bank class
 
 	attr_reader :bank_name
 	attr_reader :total_cash
-	attr_reader :accounts
+	attr_accessor :accounts
 
 	def initialize(bank_name, total_cash=0)
 		@bank_name = bank_name
@@ -45,6 +45,12 @@ class Bank #made the Bank class
 		@accounts[account_name.name] -= withdraw_amount
 		account_name.cash_on_hand += withdraw_amount
 		puts "#{account_name.name} withdrew #{withdraw_amount} from #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
+	end
+
+	def transfer(account_name, recipient_bank, transfer_amount)
+		@accounts[account_name.name] -= transfer_amount
+		recipient_bank.accounts[account_name.name] += transfer_amount
+		puts "#{account_name.name} transferred $#{transfer_amount} from the #{bank_name} account to the #{recipient_bank.bank_name} account. The #{bank_name} account has $#{@accounts[account_name.name]} and the #{recipient_bank.bank_name} account has $#{recipient_bank.accounts[account_name.name]}."
 	end
 
 end
