@@ -17,12 +17,10 @@ end
 class Bank #made the Bank class
 
 	attr_reader :bank_name
-	attr_reader :total_cash
 	attr_accessor :accounts
 
-	def initialize(bank_name, total_cash=0)
+	def initialize(bank_name)
 		@bank_name = bank_name
-		@total_cash = total_cash
 		@accounts = Hash.new
 		puts "#{@bank_name} bank was just created."
 	end
@@ -63,6 +61,11 @@ class Bank #made the Bank class
 		puts "#{account_name.name} transferred $#{transfer_amount} from the #{bank_name} account to the #{recipient_bank.bank_name} account. The #{bank_name} account has $#{@accounts[account_name.name]} and the #{recipient_bank.bank_name} account has $#{recipient_bank.accounts[account_name.name]}."
 	end
 
+	def total_cash_in_bank
+		array_of_values = @accounts.values
+		grand_total = array_of_values.inject(0) { |sum, a| sum + a }
+		"#{bank_name} has $#{grand_total} in the bank."
+	end
 end
 
 chase = Bank.new("JP Morgan Chase")
@@ -80,3 +83,6 @@ chase.transfer(me, wells_fargo, 100)
 
 chase.deposit(me, 5000)
 chase.withdraw(me, 5000)
+
+puts chase.total_cash_in_bank
+puts wells_fargo.total_cash_in_bank
