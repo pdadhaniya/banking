@@ -23,4 +23,8 @@ class Bank #made the Bank class
 		@total_cash = total_cash
 	end
 
+	def open_account(account_name)
+		puts "#{account_name.name}, thanks for opening an account at #{@bank_name}!"
+	end
+
 end
