@@ -8,6 +8,7 @@ class Person #made the Person class
 	def initialize(name, cash_on_hand=0)
 		@name = name
 		@cash_on_hand = cash_on_hand
+		puts "Hi, #{@name}. You have $#{@cash_on_hand}!"
 	end
 
 end
@@ -23,6 +24,7 @@ class Bank #made the Bank class
 		@bank_name = bank_name
 		@total_cash = total_cash
 		@accounts = Hash.new
+		puts "#{@bank_name} bank was just created."
 	end
 
 	def open_account(account_name)
@@ -44,7 +46,7 @@ class Bank #made the Bank class
 	def withdraw(account_name, withdraw_amount)
 		@accounts[account_name.name] -= withdraw_amount
 		account_name.cash_on_hand += withdraw_amount
-		puts "#{account_name.name} withdrew #{withdraw_amount} from #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
+		puts "#{account_name.name} withdrew $#{withdraw_amount} from #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
 	end
 
 	def transfer(account_name, recipient_bank, transfer_amount)
@@ -55,9 +57,15 @@ class Bank #made the Bank class
 
 end
 
-
-# bob = Person.new("Bob", 1000)
-# chase = Bank.new("JPM Chase", 0)
-# chase.open_account(bob)
-# chase.deposit(bob, 300)
-# chase.withdraw(bob, 300)
+chase = Bank.new("JP Morgan Chase")
+wells_fargo = Bank.new("Wells Fargo")
+me = Person.new("Shehzan", 500)
+friend1 = Person.new("John", 1000)
+chase.open_account(me)
+chase.open_account(friend1)
+wells_fargo.open_account(me)
+wells_fargo.open_account(friend1)
+chase.deposit(me, 200)
+chase.deposit(friend1, 300)
+chase.withdraw(me, 50)
+chase.transfer(me, wells_fargo, 100)
