@@ -41,6 +41,12 @@ class Bank #made the Bank class
 		puts "#{account_name.name} deposited $#{deposit_amount} to #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
 	end
 
+	def withdraw(account_name, withdraw_amount)
+		@accounts[account_name.name] -= withdraw_amount
+		account_name.cash_on_hand += withdraw_amount
+		puts "#{account_name.name} withdrew #{withdraw_amount} from #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
+	end
+
 end
 
 
@@ -48,3 +54,4 @@ end
 # chase = Bank.new("JPM Chase", 0)
 # chase.open_account(bob)
 # chase.deposit(bob, 300)
+# chase.withdraw(bob, 300)
