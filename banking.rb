@@ -3,7 +3,7 @@
 class Person #made the Person class
 
 	attr_reader :name
-	attr_reader :cash_on_hand
+	attr_accessor :cash_on_hand
 
 	def initialize(name, cash_on_hand=0)
 		@name = name
@@ -26,7 +26,7 @@ class Bank #made the Bank class
 	end
 
 	def open_account(account_name)
-		if @accounts[account_name]
+		if @accounts[account_name.name]
 			puts "#{account_name.name} already has an account at #{bank_name}! Can't have two!!"
 		else
 		@accounts[account_name.name] = 0
@@ -35,4 +35,16 @@ class Bank #made the Bank class
 		end
 	end
 
+	def deposit(account_name, deposit_amount)
+		@accounts[account_name.name] += deposit_amount
+		account_name.cash_on_hand -= deposit_amount
+		puts "#{account_name.name} deposited $#{deposit_amount} to #{bank_name}. #{account_name.name} has $#{account_name.cash_on_hand}. #{account_name.name}'s account has $#{@accounts[account_name.name]}."
+	end
+
 end
+
+
+# bob = Person.new("Bob", 1000)
+# chase = Bank.new("JPM Chase", 0)
+# chase.open_account(bob)
+# chase.deposit(bob, 300)
